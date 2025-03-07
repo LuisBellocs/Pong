@@ -1,0 +1,21 @@
+# Archivos de compilación
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Directorios de construcción
+/build/
+/Debug/
+/Release/
+
+# Archivos de configuración IDE
+/.vscode/
+/.idea/
+*.user
+*.suo
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
