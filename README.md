@@ -10,3 +10,5 @@ Pong clasico de Atari\
    - **Jugador 2**: Usa las teclas `(UP_ARROW)` y `(DOWN_ARROW)`.
 
 -La pelota al colisionar con el fin de la pantalla (derecha o izquierda) debera agregar puntos al jugador contrario y reiniciar la posicion de la pelota al centro de la pantalla. (para los puntos no es necesario ponerlos en pantalla, con que se vean en la terminal esta bien.
+
+NOTA: **Arquitectura** x86 (32 bits)
