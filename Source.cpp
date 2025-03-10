@@ -5,6 +5,8 @@
 					 // it also includes gl.h and glu.h for the openGL library calls
 #include <math.h>
 
+#include <stdio.h>
+
 #define PI 3.1415926535898 
 
 double xpos, ypos, ydir, xdir;         // x and y position for house to be drawn
@@ -36,7 +38,7 @@ void MyCircle2f(GLfloat centerx, GLfloat centery, GLfloat radius) {
 	glEnd();
 }
 
-GLfloat RadiusOfBall = 15.;
+GLfloat RadiusOfBall = 10.;
 // Draw the ball, centered at the origin
 void draw_ball() {
 	glColor3f(0.0, 0.0, 0.0);
@@ -63,6 +65,18 @@ void draw_paddle(GLfloat x, GLfloat y) {
 	glEnd();
 }
 
+// Scoreboard
+int points1 = 0;
+int points2 = 0;
+
+void drawText(const char* text, float x, float y) {
+	glColor3f(0.0, 0.0, 0.0);
+	glRasterPos2f(x, y);
+
+	for (const char* c = text; *c != '\0'; c++) {
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
+	}
+}
 
 // Controller
 // Move at x axis paddle 2 using s key and w key
@@ -126,16 +140,19 @@ void update(int value) {
 		if (xpos <= 0 - RadiusOfBall) {
 			xpos = 80;
 			ypos = 60;
-		}
+			points1++;
+			}
 
 		if (xpos >= 160 + RadiusOfBall) {
 			xpos = 80;
 			ypos = 60;
-		}
+			points2++;
+			}
+
 		// up and down collisions
-		if (ypos == 120 - RadiusOfBall)
+		if (ypos >= 120 - RadiusOfBall)
 			ydir = -1;
-		else if (ypos < RadiusOfBall)
+		else if (ypos <= RadiusOfBall)
 			ydir = 1;
 	}
 
@@ -160,6 +177,10 @@ void Display(void)
 	draw_paddle(paddle1X, paddle1Y);  // right paddle
 	draw_paddle(paddle2X, paddle2Y);  // left paddle
 
+	char scoreText[50];
+	sprintf_s(scoreText, "%d - %d", points2, points1);
+	drawText(scoreText, 72, 110);
+
 	//Translate the bouncing ball to its new position
 	T[12] = xpos;
 	T[13] = ypos;
@@ -177,6 +198,7 @@ void Display(void)
 	glMultMatrixf(T1);
 
 	draw_ball();
+
 }
 
 
